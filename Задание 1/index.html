@@ -1,0 +1,36 @@
+const xmlString = `<list>
+    <student>
+        <name lang="en">
+            <first>Ivan</first>
+            <second>Ivanov</second>
+        </name>
+        <age>35</age>
+        <prof>teacher</prof>
+    </student>
+    <student>
+        <name lang="ru">
+            <first>Петр</first>
+            <second>Петров</second>
+        </name>
+        <age>58</age>
+        <prof>driver</prof>
+    </student>
+</list>`;
+
+const parser = new DOMParser();
+const xml = parser.parseFromString(xmlString, 'application/xml');
+
+const students = xml.querySelectorAll('student');
+const list =[];
+
+students.forEach(student => {
+const name = `${student.querySelector('name > first').textContent} ${student.querySelector('name > second').textContent}`;
+const age = student.querySelector('age').textContent;
+const prof = student.querySelector('prof').textContent;
+const lang = student.querySelector('name').getAttribute('lang');
+list.push({name, age, prof, lang});
+});
+
+const JSObject = {list};
+
+console.log(JSObject);
